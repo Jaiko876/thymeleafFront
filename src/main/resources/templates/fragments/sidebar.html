@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body >
+<div class="container-fluid" th:fragment="sidebar">
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                            <a href="/home" th:classappend="${#httpServletRequest.getRequestURI() == '/home' ? 'nav-link active':'nav-link'}">
+                                <span data-feather="home"></span>
+                                Главная <span class="sr-only">(current)</span>
+                            </a>
+                    </li>
+                    <li class="nav-item">
+                        <a
+                                class="nav-link" href="#"
+                                data-toggle="collapse" data-target="#collapseOrders" aria-expanded="false" aria-controls="collapseOrders"
+                        >
+                            <span data-feather="file"></span>
+                            Процессы
+                        </a>
+                    </li>
+
+                    <div th:classappend="${#httpServletRequest.getRequestURI() == '/processForm' ? 'collaps show':'collapse'}" id="collapseOrders" >
+                        <div class="ml-4 mr-2 my-2 expanded-list">
+                            <li class="nav-item">
+                                <a href="/processForm" th:classappend="${#httpServletRequest.getRequestURI() == '/processForm' ? 'nav-link active':'nav-link'}">
+                                    <span data-feather="shopping-cart"></span>
+                                    Добавить процесс
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="users"></span>
+                                    Customers
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="users"></span>
+                                    Customers
+                                </a>
+                            </li>
+                        </div>
+                    </div>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="shopping-cart"></span>
+                            Products
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="users"></span>
+                            Customers
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="bar-chart-2"></span>
+                            Reports
+                        </a>
+                    </li>
+                    <li class="nav-item" th:text="${#httpServletRequest.requestURI}">
+                        <a class="nav-link" href="#">
+                            <span data-feather="layers"></span>
+                            Integrations
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
+</body>
+</html>
