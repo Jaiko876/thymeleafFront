@@ -1,7 +1,6 @@
 package qas.uicontroller.controller;
 
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -10,12 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
-import qas.uicontroller.model.ProcessType;
 import qas.uicontroller.model.RegForm;
-import qas.uicontroller.model.Role;
-import qas.uicontroller.service.CookieService;
-
-import javax.servlet.http.HttpServletRequest;
 
 
 @Controller
