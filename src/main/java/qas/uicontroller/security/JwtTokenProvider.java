@@ -24,14 +24,6 @@ public class JwtTokenProvider {
         secret = Base64.getEncoder().encodeToString(secret.getBytes());
     }
 
-    public String resolveToken(HttpServletRequest req) {
-        String bearerToken = req.getHeader("Authorization");
-        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7);
-        }
-        return null;
-    }
-
     public UsernamePasswordAuthenticationToken getAuthentication(String token) {
         Jws<Claims> claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
         String userName = claims.getBody().getSubject();
@@ -39,5 +31,10 @@ public class JwtTokenProvider {
         return new UsernamePasswordAuthenticationToken(
                 userName, null,authorities.stream().map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList()));
+    }
+
+    public int getId(String token) {
+        Jws<Claims> claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
+        return claims.getBody().get("id", Integer.class);
     }
 }

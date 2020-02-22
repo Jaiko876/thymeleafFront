@@ -5,30 +5,32 @@
     <title>Title</title>
 </head>
 <body >
-        <!--/*@thymesVar id="processTypeList" type="qas.uicontroller.model.ProcessType"*/-->
-        <form th:fragment="pForm" th:action="@{/addProcess}" th:object="${processTypeList}" method="post">
+        <form th:fragment="pForm" th:action="@{/addProcess}" th:object="${process}" method="post">
             <div class="border-bottom">
                 <h3>Добавить новый процесс</h3>
             </div>
             <br>
-            <div>
+            <div class="my-2">
                 <label for="processtype">Тип процесса</label>
-                <select name="processtype" class="form-control" id="processtype">
+                <select name="processtype" class="form-control" id="processtype" th:field="*{process_type_id}">
                     <th:block th:each="ptype : ${ptl}">
-                        <option th:text="${ptype.name}"></option>
+                        <option th:value="${ptype.idProcessType}" th:text="${ptype.name}"></option>
                     </th:block>
                 </select>
             </div>
-            <div>
-                <label for="description">Описание документа</label>
-                <input type="text" name="description" class="form-control" id="description" pattern="^[А-Яа-яЁё\s]+$" maxlength="300" required/>
+            <div class="my-2">
+                <label for="name">Имя документа</label>
+                <input type="text" th:field="*{name}" class="form-control" id="name" pattern="^[А-Яа-яЁё\s]+$" maxlength="300" required/>
             </div>
-            <div>
+            <div class="my-2">
+                <label for="description">Описание документа</label>
+                <input type="text" th:field="*{description}" class="form-control" id="description" pattern="^[А-Яа-яЁё\s]+$" maxlength="300" required/>
+            </div>
+            <div class="my-2">
                 <label for="date">Дата</label>
-                <input type="datetime-local" name="date" class="form-control" id="date" required/>
+                <input type="datetime-local" name="dateForm" th:field="*{{temp_date_end_planning}}" class="form-control" id="date" required/>
             </div>
             <br>
-
             <button type="submit" class="btn btn-primary">Добавить</button>
             <!--button type="button" class="btn btn-primary">Отмена</button-->
         </form>

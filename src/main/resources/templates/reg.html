@@ -31,8 +31,8 @@
     <label for="inputEmail" class="sr-only">FIO</label>
     <input type="email" th:field="*{email}" id="inputEmail" class="form-control" placeholder="Email" required>
     <label for="inputTelegram" class="sr-only">FIO</label>
-    <input type="text" th:field="*{telegramChatId}"  onkeypress="return isNumber(event)" id="inputTelegram" class="form-control" placeholder="Telegram" required>
-    <button class="btn btn-lg btn-primary btn-block" type="submit" id="loginBtn">Register</button>
+    <input type="text" th:field="*{telegramChatId}"  onkeypress="return isNumber(event)" id="inputTelegram" class="form-control" placeholder="Telegram" required>        <label for="processtype">Тип процесса</label>
+    <button class="btn btn-lg btn-primary btn-block my-2" type="submit" id="loginBtn">Register</button>
     <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
 </form>
 <script th:src="jquery-3.3.1.min.js"></script>
