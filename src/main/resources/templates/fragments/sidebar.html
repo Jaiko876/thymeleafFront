@@ -25,24 +25,23 @@
                             Процессы
                         </a>
                     </li>
-
-                    <div th:classappend="${#httpServletRequest.getRequestURI() == '/processForm' ? 'collaps show':'collapse'}" id="collapseOrders" >
+                    <div th:classappend="${(menu == 'process' ? 'collapse show':'collapse')}" id="collapseOrders">
                         <div class="ml-4 mr-2 my-2 expanded-list">
                             <li class="nav-item">
-                                <a href="/processForm" th:classappend="${#httpServletRequest.getRequestURI() == '/processForm' ? 'nav-link active':'nav-link'}">
-                                    <span data-feather="shopping-cart"></span>
+                                <a href="/processForm" th:classappend="${active == 'processForm' ? 'nav-link active':'nav-link'}">
+                                    <span data-feather="file-text"></span>
                                     Добавить процесс
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <span data-feather="users"></span>
-                                    Customers
+                                <a class="nav-link" href="#" th:classappend="${active == 'allProcesses' ? 'nav-link active':'nav-link'}">
+                                    <span data-feather="file-text"></span>
+                                    Cписок моих процессов
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
-                                    <span data-feather="users"></span>
+                                    <span data-feather="file-text"></span>
                                     Customers
                                 </a>
                             </li>

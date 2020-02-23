@@ -71,6 +71,6 @@ public class ProcessController {
 
         processService.addProcess(process,request);
 
-        return "index";
+        return "home";
     }
 }

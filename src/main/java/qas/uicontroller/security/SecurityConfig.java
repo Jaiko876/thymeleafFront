@@ -22,7 +22,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic().disable().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().authorizeRequests()
                 .and()
                 .authorizeRequests()
                 .anyRequest().authenticated()
@@ -31,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/resources/**" ,"/*.js", "/*.css", "/*.map",
+                .antMatchers("/resources/**" ,"/**/*.js", "/**/*.css", "/**/*.map",
                         "/login", "/reg" , "/error");
     }
 

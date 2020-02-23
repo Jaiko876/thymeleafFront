@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+
+    <title>Dashboard Template · Bootstrap</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            crossorigin="anonymous"
+    />
+
+    <!-- Custom styles for this template -->
+    <link href="../../static/css/dashboard.css"  th:href="@{dashboard.css}" rel="stylesheet" />
+</head>
+<body>
+<div th:insert="fragments/navbar::navbar"></div>
+<div th:insert="fragments/sidebar::sidebar"></div>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+    <div class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+    >
+        <div th:insert="fragments/process/pForm::pForm"></div>
+    </div>
+</main>
+<div th:insert="fragments/footer::footer"></div>
+</body>
+</html>
