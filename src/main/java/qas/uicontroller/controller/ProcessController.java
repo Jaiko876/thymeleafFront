@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
 import qas.uicontroller.model.Process;
 import qas.uicontroller.model.ProcessType;
+import qas.uicontroller.model.view.ProcessViewModel;
 import qas.uicontroller.security.JwtTokenProvider;
 import qas.uicontroller.service.CookieService;
 import qas.uicontroller.service.DataParser;
@@ -31,6 +32,7 @@ public class ProcessController {
     private ProcessService processService;
 
 
+
     public ProcessController(CookieService cookieService, DataParser dataParser, JwtTokenProvider jwtTokenProvider, ProcessTypesService processTypesService, ProcessService processService) {
         this.cookieService = cookieService;
         this.dataParser = dataParser;
@@ -45,7 +47,7 @@ public class ProcessController {
         if (processTypeArray.getBody() == null) {
             throw new Exception("Пустой RestTemplate");
         }
-            List<ProcessType> listprocesstypes = Arrays.asList(processTypeArray.getBody());
+        List<ProcessType> listprocesstypes = Arrays.asList(processTypeArray.getBody());
 
         model.addAttribute("ptl",listprocesstypes);
         model.addAttribute("process", new Process());
@@ -61,7 +63,6 @@ public class ProcessController {
      */
     @RequestMapping(value = "addProcess", method = RequestMethod.POST)
     public String addProcess(@ModelAttribute Process process, HttpServletRequest request) {
-        System.out.println(process);
         try {
             Timestamp timestamp = dataParser.parseData(process.getTemp_date_end_planning());
             process.setDate_end_planning(timestamp);
@@ -71,6 +72,16 @@ public class ProcessController {
 
         processService.addProcess(process,request);
 
-        return "home";
+        return "redirect:/showMyProcesses";
+    }
+    @RequestMapping(value = "showMyProcesses", method = RequestMethod.GET)
+    public String showMyProcesses(Model model, HttpServletRequest request) {
+        try {
+            List<ProcessViewModel> processes = processService.getUsersProcesses(request);
+            model.addAttribute("processList", processes);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "process/showMyProcesses";
     }
 }

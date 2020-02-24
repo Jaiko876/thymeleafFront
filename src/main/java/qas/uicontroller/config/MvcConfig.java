@@ -18,7 +18,7 @@ public class MvcConfig implements WebMvcConfigurer {
         .addResourceLocations("classpath:/static/css/");
     }
     @Bean
-    public MappedInterceptor CookieInterceptor() {
+    public MappedInterceptor menuInterceptor() {
         return new MappedInterceptor(new String[] {"/**"}, new String[] {"/login", "/reg", "classpath:/static/js/*",
                 "classpath:/static/css/*", "/*.map","/*.js","/*.css", "/error"}, new menuHelper());
     }

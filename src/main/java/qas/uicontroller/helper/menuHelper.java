@@ -11,13 +11,13 @@ public class menuHelper extends HandlerInterceptorAdapter {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         String requestURI = request.getRequestURI();
-        if (requestURI.equals("/processForm") || requestURI.equals("/allProcesses")) {
+        if (requestURI.equals("/processForm") || requestURI.equals("/showMyProcesses")) {
             modelAndView.addObject("menu", "process");
             if (requestURI.equals("/processForm")) {
                 modelAndView.addObject("active", "processForm");
             }
-            if (requestURI.equals("/allProcesses")) {
-                modelAndView.addObject("active" , "allProcesses");
+            if (requestURI.equals("/showMyProcesses")) {
+                modelAndView.addObject("active" , "showMyProcesses");
             }
         }
         super.postHandle(request, response, handler, modelAndView);

@@ -1,25 +1,25 @@
-package qas.uicontroller.model;
+package qas.uicontroller.model.view;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 
 @Data
-public class Process {
-
-    private Integer id_process;
-    private Integer process_type_id;
+@AllArgsConstructor
+@NoArgsConstructor
+public class ProcessViewModel {
+    private Integer id;
+    private String process_type_name;
     private String name;
     private String description;
-    private Integer user_start_id;
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSS")
     private Timestamp date_start;
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSS")
     private Timestamp date_end_planning;
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSS")
     private Timestamp date_end_fact;
-    private Integer status_id;
-
-    private String temp_date_end_planning;
+    private String status_name;
 }
