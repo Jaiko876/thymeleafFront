@@ -6,65 +6,29 @@
 </head>
 <body>
 <table class="table" th:fragment="usersTable">
-    <thead class="thead-dark">
+    <thead class="thead-light">
     <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
+        <th scope="col">ID</th>
+        <th scope="col">ФИО сотрудника</th>
+        <th scope="col">email</th>
+        <th scope="col">Логин</th>
+        <th scope="col">Telegram</th>
     </tr>
     </thead>
+
     <tbody>
-    <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-    </tr>
-    <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-    </tr>
-    <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-    </tr>
+    <th:block th:each="user : ${listusers}">
+        <tr>
+            <th scope="row" th:text="${user.idUser}">#</th>
+            <td th:text="${user.fio}">fio</td>
+            <td th:text="${user.email}">email</td>
+            <td th:text="${user.login}">login</td>
+            <td th:text="${user.telegramChatId}">telegram</td>
+            <td><a th:href="@{/showroles(id=${user.idUser})}">Показать роли </a></td>
+        </tr>
+    </th:block>
     </tbody>
 </table>
 
-<table class="table">
-    <thead class="thead-light">
-    <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-    </tr>
-    <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-    </tr>
-    <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-    </tr>
-    </tbody>
-</table>
 </body>
 </html>

@@ -4,22 +4,24 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body >
+<body>
 <div class="container-fluid" th:fragment="sidebar">
     <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
             <div class="sidebar-sticky">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                            <a href="/home" th:classappend="${#httpServletRequest.getRequestURI() == '/home' ? 'nav-link active':'nav-link'}">
-                                <span data-feather="home"></span>
-                                Главная <span class="sr-only">(current)</span>
-                            </a>
+                        <a href="/home"
+                           th:classappend="${#httpServletRequest.getRequestURI() == '/home' ? 'nav-link active':'nav-link'}">
+                            <span data-feather="home"></span>
+                            Главная <span class="sr-only">(current)</span>
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a
                                 class="nav-link" href="#"
-                                data-toggle="collapse" data-target="#collapseOrders" aria-expanded="false" aria-controls="collapseOrders"
+                                data-toggle="collapse" data-target="#collapseOrders" aria-expanded="false"
+                                aria-controls="collapseOrders"
                         >
                             <span data-feather="file"></span>
                             Процессы
@@ -28,13 +30,15 @@
                     <div th:classappend="${(menu == 'process' ? 'collapse show':'collapse')}" id="collapseOrders">
                         <div class="ml-4 mr-2 my-2 expanded-list">
                             <li class="nav-item">
-                                <a href="/processForm" th:classappend="${active == 'processForm' ? 'nav-link active':'nav-link'}">
+                                <a href="/processForm"
+                                   th:classappend="${active == 'processForm' ? 'nav-link active':'nav-link'}">
                                     <span data-feather="file-text"></span>
                                     Добавить процесс
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/showMyProcesses" th:classappend="${active == 'showMyProcesses' ? 'nav-link active':'nav-link'}">
+                                <a href="/showMyProcesses"
+                                   th:classappend="${active == 'showMyProcesses' ? 'nav-link active':'nav-link'}">
                                     <span data-feather="file-text"></span>
                                     Cписок моих процессов
                                 </a>
@@ -48,16 +52,16 @@
                         </div>
                     </div>
 
-                    <li class="nav-item">
+                    <!--li class="nav-item">
                         <a class="nav-link" href="#">
                             <span data-feather="shopping-cart"></span>
                             Products
                         </a>
-                    </li>
+                    </li-->
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="users"></span>
-                            Customers
+                        <a href="/allusers" th:classappend="${active == 'allusers' ? 'nav-link active':'nav-link'}">
+                        <span data-feather="users"></span>
+                            Пользователи
                         </a>
                     </li>
                     <li class="nav-item">
@@ -66,12 +70,12 @@
                             Reports
                         </a>
                     </li>
-                    <li class="nav-item" th:text="${#httpServletRequest.requestURI}">
+                    <!--li class="nav-item" th:text="${#httpServletRequest.requestURI}">
                         <a class="nav-link" href="#">
                             <span data-feather="layers"></span>
                             Integrations
                         </a>
-                    </li>
+                    </li-->
                 </ul>
             </div>
         </nav>

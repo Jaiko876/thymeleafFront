@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table class="table" th:fragment="rolesTable">
+    <thead class="thead-light">
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Наименование роли</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <th:block th:each="role : ${listroles}">
+        <tr>
+            <th scope="row" th:text="${role.idRole}">#</th>
+            <td th:text="${role.name}">name</td>
+
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+</body>
+</html>
