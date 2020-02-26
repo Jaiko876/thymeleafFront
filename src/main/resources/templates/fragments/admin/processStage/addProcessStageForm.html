@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:fragment="processStageForm" th:action="@{addNewProcessStage}" th:object="${processStage}" method="post">
+    <div class="border-bottom">
+        <h3>Добавить новый этап</h3>
+    </div>
+    <br>
+    <div class="my-2">
+        <label for="processtype">Тип процесса</label>
+        <input class="form-control" id="processtype" type="text" th:placeholder="${processType.name}" readonly>
+    </div>
+    <input type="hidden" th:id="process_type_id" th:value="${processType.idProcessType}" th:name="process_type_id">
+    <div class="my-2">
+        <label for="name">Этап №</label>
+        <input type="number" th:field="*{stage}" class="form-control" id="name" maxlength="10" required/>
+    </div>
+    <div class="my-2">
+        <label for="role_id">Роль согласованта</label>
+        <select name="role_id" class="form-control" id="role_id" th:field="*{role_id}">
+            <th:block th:each="role : ${listroles}">
+                <option th:value="${role.idRole}" th:text="${role.name}"></option>
+            </th:block>
+        </select>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Добавить</button>
+    <div class="my-4"></div>
+    <!--button type="button" class="btn btn-primary">Отмена</button-->
+</form>
+</body>
+</html>

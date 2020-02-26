@@ -8,18 +8,19 @@
 <table class="table" th:fragment="usersTable">
     <thead class="thead-light">
     <tr>
-        <th scope="col">ID</th>
+        <th scope="col">#</th>
         <th scope="col">ФИО сотрудника</th>
         <th scope="col">email</th>
         <th scope="col">Логин</th>
         <th scope="col">Telegram</th>
+        <th scope="col">Роли</th>
     </tr>
     </thead>
 
     <tbody>
-    <th:block th:each="user : ${listusers}">
+    <th:block th:each="user,iterationStatus  : ${listusers}">
         <tr>
-            <th scope="row" th:text="${user.idUser}">#</th>
+            <th scope="row" th:text="${iterationStatus.count}">#</th>
             <td th:text="${user.fio}">fio</td>
             <td th:text="${user.email}">email</td>
             <td th:text="${user.login}">login</td>

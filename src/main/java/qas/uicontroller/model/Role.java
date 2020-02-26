@@ -9,27 +9,27 @@ import java.util.Objects;
 @Data
 public class Role implements Serializable {
     @JsonProperty("id_role")
-    private Integer idRole = null;
+    private Integer idRole;
 
     @JsonProperty("name")
-    private String name = null;
+    private String name;
 
     @Override
-    public boolean equals(java.lang.Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
         Role role = (Role) o;
-        return Objects.equals(this.idRole, role.idRole) &&
-                Objects.equals(this.name, role.name);
+
+        if (!idRole.equals(role.idRole)) return false;
+        return name.equals(role.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idRole, name);
+        int result = idRole.hashCode();
+        result = 31 * result + name.hashCode();
+        return result;
     }
 
     @Override

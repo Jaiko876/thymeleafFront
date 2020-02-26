@@ -19,8 +19,8 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="process: ${processList}">
-        <th scope="row" th:text="${process.id}">#</th>
+    <tr th:each="process,iterationStatus: ${processList}">
+        <th scope="row" th:text="${iterationStatus.count}">#</th>
         <td th:text="${process.process_type_name}">Тип процесса</td>
         <td th:text="${process.name}">Название</td>
         <td th:text="${process.description}">Описание процесса</td>

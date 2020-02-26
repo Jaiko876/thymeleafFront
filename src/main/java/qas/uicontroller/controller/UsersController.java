@@ -55,6 +55,7 @@ public class UsersController {
         }
         List<Role> listroles=Arrays.asList(roleArray.getBody());
         //System.out.println(listroles.toString());
+        model.addAttribute("id", id);
         model.addAttribute("listroles",listroles);
         return "users/showUserRoles";
     }

@@ -8,17 +8,24 @@
 <table class="table" th:fragment="rolesTable">
     <thead class="thead-light">
     <tr>
-        <th scope="col">ID</th>
+        <th scope="col">#</th>
         <th scope="col">Наименование роли</th>
+        <th:block th:if="${#httpServletRequest.requestURI != '/roles' }">
+        <th scope="col" th:if="${#authorization.expression('hasAuthority(''admin'')')}">
+            <a th:href="@{/admin/showUserRoleForm(id=${id})}">
+                Добавить роль</a></th>
+        </th:block>
     </tr>
     </thead>
 
     <tbody>
-    <th:block th:each="role : ${listroles}">
+    <th:block th:each="role,iterationStatus : ${listroles}">
         <tr>
-            <th scope="row" th:text="${role.idRole}">#</th>
+            <th scope="row" th:text="${iterationStatus.count}">#</th>
             <td th:text="${role.name}">name</td>
-
+            <th:block th:if="${#httpServletRequest.requestURI != '/roles' }">
+            <td th:if="${#authorization.expression('hasAuthority(''admin'')')}"></td>
+            </th:block>
         </tr>
     </th:block>
     </tbody>

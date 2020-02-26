@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table class="table" th:fragment="processStageTableView">
+    <thead class="thead-light">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Тип процесса</th>
+        <th scope="col">Этап №</th>
+        <th scope="col">Роль согласованта</th>
+        <th:block th:if="${#httpServletRequest.requestURI != '/roles' }">
+            <th scope="col" th:if="${#authorization.expression('hasAuthority(''admin'')')}">
+                Детали </th>
+        </th:block>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="processStage,iterationStatus: ${processStageList}">
+        <th scope="row" th:text="${iterationStatus.count}"></th>
+        <td th:text="${processStage.processTypeName}"></td>
+        <td th:text="${processStage.stage}"></td>
+        <td th:text="${processStage.roleName}"></td>
+        <th:block th:if="${#httpServletRequest.requestURI != '/roles' }">
+            <td th:if="${#authorization.expression('hasAuthority(''admin'')')}">
+                <a th:href="@{/admin/getProcessStageForm(id=${processStage.processTypeId})}">
+                    Добавить новый этап </a>
+            </td>
+        </th:block>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -43,39 +43,112 @@
                                     Cписок моих процессов
                                 </a>
                             </li>
+                        </div>
+                    </div>
+
+                    <li class="nav-item">
+                        <a
+                                class="nav-link" href="#"
+                                data-toggle="collapse" data-target="#collapseOrders5" aria-expanded="false"
+                                aria-controls="collapseOrders5"
+                        >
+                            <span data-feather="file"></span>
+                            Пользователи
+                        </a>
+                    </li>
+                    <div th:classappend="${(menu == 'users' ? 'collapse show':'collapse')}" id="collapseOrders5">
+                        <div class="ml-4 mr-2 my-2 expanded-list">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <span data-feather="file-text"></span>
-                                    Customers
+                                <a href="/allusers" th:classappend="${active == 'allusers' ? 'nav-link active':'nav-link'}">
+                                    <span data-feather="users"></span>
+                                    Список пользователей
                                 </a>
                             </li>
                         </div>
                     </div>
 
-                    <!--li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="shopping-cart"></span>
-                            Products
-                        </a>
-                    </li-->
+
                     <li class="nav-item">
-                        <a href="/allusers" th:classappend="${active == 'allusers' ? 'nav-link active':'nav-link'}">
-                        <span data-feather="users"></span>
-                            Пользователи
+                        <a
+                                class="nav-link" href="#"
+                                data-toggle="collapse" data-target="#collapseOrders2" aria-expanded="false"
+                                aria-controls="collapseOrders2"
+                        >
+                            <span data-feather="file"></span>
+                            Роли
                         </a>
                     </li>
+                    <div th:classappend="${(menu == 'role' ? 'collapse show':'collapse')}" id="collapseOrders2">
+                        <div class="ml-4 mr-2 my-2 expanded-list">
+                            <li class="nav-item">
+                                <a href="/admin/addRoleForm"
+                                   th:classappend="${active == 'addRoleForm' ? 'nav-link active':'nav-link'}"
+                                   th:if="${#authorization.expression('hasAuthority(''admin'')')}">
+                                    <span data-feather="file-text"></span>
+                                    Добавить роль
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/roles"
+                                   th:classappend="${active == 'roles' ? 'nav-link active':'nav-link'}">
+                                    <span data-feather="file-text"></span>
+                                    Список ролей
+                                </a>
+                            </li>
+                        </div>
+                    </div>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="bar-chart-2"></span>
-                            Reports
+                        <a
+                                class="nav-link" href="#"
+                                data-toggle="collapse" data-target="#collapseOrders3" aria-expanded="false"
+                                aria-controls="collapseOrders3"
+                        >
+                            <span data-feather="file"></span>
+                            Типы процессов
                         </a>
                     </li>
-                    <!--li class="nav-item" th:text="${#httpServletRequest.requestURI}">
-                        <a class="nav-link" href="#">
-                            <span data-feather="layers"></span>
-                            Integrations
-                        </a>
-                    </li-->
+                    <div th:classappend="${(menu == 'processType' ? 'collapse show':'collapse')}" id="collapseOrders3">
+                        <div class="ml-4 mr-2 my-2 expanded-list">
+                            <li class="nav-item">
+                                <a href="/admin/getProcessTypeForm"
+                                   th:classappend="${active == 'getProcessTypeForm' ? 'nav-link active':'nav-link'}"
+                                   th:if="${#authorization.expression('hasAuthority(''admin'')')}">
+                                    <span data-feather="file-text"></span>
+                                    Добавить тип процесса
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/getAllProcessTypes"
+                                   th:classappend="${active == 'getAllProcessTypes' ? 'nav-link active':'nav-link'}">
+                                    <span data-feather="file-text"></span>
+                                    Список типов процессов
+                                </a>
+                            </li>
+                        </div>
+                    </div>
+
+                        <li class="nav-item">
+                            <a
+                                    class="nav-link" href="#"
+                                    data-toggle="collapse" data-target="#collapseOrders4" aria-expanded="false"
+                                    aria-controls="collapseOrders4"
+                            >
+                                <span data-feather="file"></span>
+                                Этапы процессов
+                            </a>
+                        </li>
+                        <div th:classappend="${(menu == 'processStage' ? 'collapse show':'collapse')}" id="collapseOrders4">
+                            <div class="ml-4 mr-2 my-2 expanded-list">
+                                <li class="nav-item">
+                                    <a href="/getAllProcessStages"
+                                       th:classappend="${active == 'getAllProcessStages' ? 'nav-link active':'nav-link'}">
+                                        <span data-feather="file-text"></span>
+                                        Список этапов
+                                    </a>
+                                </li>
+                            </div>
+                        </div>
                 </ul>
             </div>
         </nav>
