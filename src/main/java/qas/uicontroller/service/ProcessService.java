@@ -73,7 +73,7 @@ public class ProcessService implements IProcessService {
         int counter = 1;
         for (Process process: processList) {
             ProcessViewModel pvm = new ProcessViewModel(
-                    counter++, processTypes.get(process.getProcess_type_id() - 1).getName(),
+                    process.getId_process(), processTypes.get(process.getProcess_type_id() - 1).getName(),
                     process.getName(),process.getDescription(),process.getDate_start(),
                     process.getDate_end_planning(),process.getDate_end_fact(),
                     StatusType.valueOfLabel(process.getStatus_id().toString()).name()
@@ -82,5 +82,14 @@ public class ProcessService implements IProcessService {
         }
 
         return processViewModels;
+    }
+
+    @Override
+    public Process getProcessById(HttpServletRequest request, int id) throws Exception {
+        HttpEntity entityWithToken = cookieService.createEntityWithToken(request);
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<Process> exchange = restTemplate.exchange("http://localhost:8080/process/{id}", HttpMethod.GET, entityWithToken,
+                Process.class, id);
+        return exchange.getBody();
     }
 }

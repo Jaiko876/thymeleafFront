@@ -16,6 +16,7 @@
         <th scope="col">Планируемая дата конца?</th>
         <th scope="col">Фактическая дата окончания?</th>
         <th scope="col">Статус процесса</th>
+        <th scope="col">Задачи</th>
     </tr>
     </thead>
     <tbody>
@@ -28,6 +29,7 @@
         <td th:text="${process.date_end_planning}">Планируемая дата конца?</td>
         <td th:text="${process.date_end_fact}">Фактическая дата окончания?</td>
         <td th:text="${process.status_name}">Статус процесса</td>
+        <td><a th:href="@{/tasks(id=${process.id})}">Статус процесса </a></td>
     </tr>
     </tbody>
 </table>

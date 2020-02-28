@@ -11,4 +11,5 @@ import java.util.List;
 public interface IProcessService {
     boolean addProcess(Process process, HttpServletRequest request);
     List<ProcessViewModel> getUsersProcesses(HttpServletRequest request) throws Exception;
+    Process getProcessById(HttpServletRequest request, int id) throws Exception;
 }

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table class="table" th:fragment="taskByProcessTable">
+    <thead class="thead-light">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Название процесса</th>
+        <th scope="col">Исполнитель</th>
+        <th scope="col">Роль исполнителя</th>
+        <th scope="col">Дата начала</th>
+        <th scope="col">Планируемая дата конца?</th>
+        <th scope="col">Фактическая дата окончания?</th>
+        <th scope="col">Статус задачи</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="task,iterationStatus: ${tasks}">
+        <th scope="row" th:text="${iterationStatus.count}">#</th>
+        <td th:text="${task.processName}">Название процесса</td>
+        <td th:text="${task.userPerformerName}">Создатель задачи</td>
+        <td th:text="${task.rolePerformerName}">Роль</td>
+        <td th:text="${task.dateStart}">Дата начала</td>
+        <td th:text="${task.dateEndPlanning}">Планируемая дата конца?</td>
+        <td th:text="${task.dateEndFact}">Фактическая дата окончания?</td>
+        <td th:text="${task.statusName}">Статус задачи</td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
