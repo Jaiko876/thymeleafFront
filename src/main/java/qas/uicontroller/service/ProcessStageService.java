@@ -83,4 +83,14 @@ public class ProcessStageService implements IProcessStage {
         }
         return newStages;
     }
+
+    @Override
+    public int getActualStage(HttpServletRequest request, List<ProcessStage> processStageList) {
+        int stage = 0;
+        for (ProcessStage processStage: processStageList) {
+            if (processStage.getStage() > stage)
+                stage = processStage.getStage();
+        }
+        return stage + 1;
+    }
 }

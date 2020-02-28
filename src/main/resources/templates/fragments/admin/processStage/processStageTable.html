@@ -4,34 +4,37 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
-<table class="table" th:fragment="processStageTableView">
+<body th:fragment="processStageTableView">
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h2 th:text="${processTypeName}"></h2>
+</div>
+<table class="table" th:if="${not #lists.isEmpty(processStageList)}">
     <thead class="thead-light">
     <tr>
-        <th scope="col">#</th>
-        <th scope="col">Тип процесса</th>
         <th scope="col">Этап №</th>
         <th scope="col">Роль согласованта</th>
-        <th:block th:if="${#httpServletRequest.requestURI != '/roles' }">
-            <th scope="col" th:if="${#authorization.expression('hasAuthority(''admin'')')}">
-                Детали </th>
-        </th:block>
     </tr>
     </thead>
     <tbody>
     <tr th:each="processStage,iterationStatus: ${processStageList}">
-        <th scope="row" th:text="${iterationStatus.count}"></th>
-        <td th:text="${processStage.processTypeName}"></td>
         <td th:text="${processStage.stage}"></td>
         <td th:text="${processStage.roleName}"></td>
-        <th:block th:if="${#httpServletRequest.requestURI != '/roles' }">
-            <td th:if="${#authorization.expression('hasAuthority(''admin'')')}">
-                <a th:href="@{/admin/getProcessStageForm(id=${processStage.processTypeId})}">
-                    Добавить новый этап </a>
-            </td>
-        </th:block>
     </tr>
     </tbody>
 </table>
+<div th:unless="${not #lists.isEmpty(processStageList)}" class="mb-2">
+    <h4>
+        В таблице пусто.
+        <small class="text-muted" th:if="${#authorization.expression('hasAuthority(''admin'')')}">
+            Вы можете добавить новый этап. <br> Если нет, то проверьте наличие ролей.</small>
+        <small class="text-muted my-4" th:unless="${#authorization.expression('hasAuthority(''admin'')')}">
+            Подождите, пока к данному типу процесса будет добавлен первый этап.</small>
+    </h4>
+</div>
+    <a th:classappend="${buttonStatus == 'true' ? 'btn btn-outline-primary mt-3 mb-3'
+    :'btn btn-outline-primary mt-3 mb-3 disabled'}"
+       disabled="" th:if="${#authorization.expression('hasAuthority(''admin'')')}"
+       role="button" aria-pressed="true" th:href="@{/admin/getProcessStageForm(id=${id})}">
+        Добавить новый этап </a>
 </body>
 </html>

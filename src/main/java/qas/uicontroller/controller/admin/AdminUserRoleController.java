@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import qas.uicontroller.model.Role;
+import qas.uicontroller.model.UserWithoutPassword;
 import qas.uicontroller.service.CookieService;
 import qas.uicontroller.service.RoleService;
 import qas.uicontroller.service.UsersService;
@@ -33,9 +34,11 @@ public class AdminUserRoleController {
     @RequestMapping(value = "showUserRoleForm", method = RequestMethod.GET)
     public String showUserRoleForm(Model model, HttpServletRequest request) throws Exception {
         List<Role> usersRoles = usersService.getUsersRoles(request, Integer.parseInt(request.getParameter("id")));
-        List<Role> listroles= roleService.getAllRoles(request);
+        List<Role> listroles = roleService.getAllRoles(request);
         List<Role> roleList = roleService.filterRoles(usersRoles, listroles);
+        UserWithoutPassword userById = usersService.getUserById(request, Integer.parseInt(request.getParameter("id")));
 
+        model.addAttribute("user", userById);
         model.addAttribute("role", new Role());
         model.addAttribute("listroles",roleList);
         model.addAttribute("user_id", request.getParameter("id"));

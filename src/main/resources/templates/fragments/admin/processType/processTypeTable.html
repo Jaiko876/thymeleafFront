@@ -4,34 +4,44 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
-<table class="table" th:fragment="processTypeTableView">
+<body th:fragment="processTypeTableView">
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h2>Список типов процессов</h2>
+</div>
+<table class="table" th:if="${not #lists.isEmpty(processTypeList)}">
     <thead class="thead-light">
     <tr>
-        <th scope="col">#</th>
+        <th  scope="col">#</th>
         <th scope="col">Название</th>
         <th scope="col">Описание</th>
         <th scope="col">Время на исполнение</th>
-        <th:block th:if="${#httpServletRequest.requestURI != '/roles' }">
-            <th scope="col" th:if="${#authorization.expression('hasAuthority(''admin'')')}">
-                Детали </th>
-        </th:block>
+        <th scope="col"> Этапы </th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="processType,iterationStatus: ${processTypeList}">
-        <th scope="row" th:text="${iterationStatus.count}">#</th>
-        <td th:text="${processType.name}">Название</td>
-        <td th:text="${processType.description}">Описание процесса</td>
-        <td th:text="${processType.timeToDo}">Статус процесса</td>
-        <th:block th:if="${#httpServletRequest.requestURI != '/roles' }">
-            <td th:if="${#authorization.expression('hasAuthority(''admin'')')}">
-                <a th:href="@{/getFilteredProcessStages(id=${processType.idProcessType})}">
+        <th scope="row" class="align-middle" th:text="${iterationStatus.count}">#</th>
+        <td class="align-middle" th:text="${processType.name}">Название</td>
+        <td class="align-middle" th:text="${processType.description}">Описание процесса</td>
+        <td class="align-middle text-center" th:text="${processType.timeToDo}">Статус процесса</td>
+        <td class="align-middle">
+            <a class="btn btn-outline-primary btn-sm"  th:href="@{/getFilteredProcessStages(id=${processType.idProcessType})}">
                     Перейти </a>
-            </td>
-        </th:block>
+        </td>
     </tr>
     </tbody>
 </table>
+<div th:unless="${not #lists.isEmpty(processTypeList)}" class="mb-2">
+    <h4>
+        В таблице пусто.
+        <small class="text-muted" th:if="${#authorization.expression('hasAuthority(''admin'')')}">
+            Вы можете добавить новый тип процесса.</small>
+        <small class="text-muted my-4" th:unless="${#authorization.expression('hasAuthority(''admin'')')}">
+            Подождите, пока будет добавлен первый тип процесса.</small>
+    </h4>
+    <a class="btn btn-outline-primary mt-3 mb-3" th:if="${#authorization.expression('hasAuthority(''admin'')')}"
+       role="button" aria-pressed="true" th:href="@{/admin/getProcessTypeForm}">
+        Добавить новый тип процесса </a>
+</div>
 </body>
 </html>

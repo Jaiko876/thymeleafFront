@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.ModelAndView;
 import qas.uicontroller.model.ProcessType;
 import qas.uicontroller.model.Role;
 import qas.uicontroller.model.admin.ProcessStage;
@@ -42,31 +43,37 @@ public class AdminProcessStage {
     public String getProcessStageForm(Model model, HttpServletRequest request) throws Exception {
         List<ProcessStage> allProcessStage = processStageService.getAllProcessStage(request);
         int id = Integer.parseInt(request.getParameter("id"));
+
         List<Role> listroles = roleService.getAllRoles(request);
         ProcessType processTypeById = processTypesService.getProcessTypeById(request, id);
-        if (!allProcessStage.isEmpty()) {
+        List<ProcessStage> processType = processStageService.getStagesForThisProcessType(request, allProcessStage, id);
+        int actualStage = processStageService.getActualStage(request, processType);
             List<Role> awailableRoles = processStageService.getAwailableRoles
                     (request, id, roleService, allProcessStage, listroles);
-            if (awailableRoles.isEmpty())
+            if (processType.isEmpty()) {
                 awailableRoles = listroles;
+            }
+
             model.addAttribute("listroles", awailableRoles);
             model.addAttribute("processType", processTypeById);
             model.addAttribute("processStage", new ProcessStage());
             model.addAttribute("process_type_id", id);
+            model.addAttribute("stage", actualStage);
             return "admin/processStage/processStageForm";
-        }
+       // }
 
-        model.addAttribute("listroles",listroles);
+        /*model.addAttribute("listroles",listroles);
         model.addAttribute("processType", processTypeById);
         model.addAttribute("processStage", new ProcessStage());
         model.addAttribute("process_type_id", id);
-        return "admin/processStage/processStageForm";
+        model.addAttribute("stage", actualStage);*/
+        //return "admin/processStage/processStageForm";
     }
 
     @RequestMapping(value = "addNewProcessStage", method = RequestMethod.POST)
-    public String addProcessStage(@ModelAttribute("processStage") ProcessStage processStage,
-                                  HttpServletRequest request,
-                                  @RequestParam("process_type_id") String id) throws Exception {
+    public ModelAndView addProcessStage(@ModelAttribute("processStage") ProcessStage processStage,
+                                        HttpServletRequest request,
+                                        @RequestParam("process_type_id") String id) throws Exception {
         Cookie cookie = cookieService.getCookie(request);
         HttpHeaders beaverHeader = cookieService.getBeaverHeader(cookie);
         HttpEntity<ProcessStage> processStageHttpEntity = new HttpEntity<>(processStage, beaverHeader);
@@ -75,6 +82,6 @@ public class AdminProcessStage {
         if (exchange.getStatusCode().isError()) {
             throw new Exception(exchange.getStatusCode().getReasonPhrase());
         }
-        return "redirect:../getAllProcessStages";
+        return new ModelAndView("redirect:../getFilteredProcessStages?id=" + id);
     }
 }

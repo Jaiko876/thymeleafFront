@@ -16,8 +16,8 @@
     </div>
     <input type="hidden" th:id="process_type_id" th:value="${processType.idProcessType}" th:name="process_type_id">
     <div class="my-2">
-        <label for="name">Этап №</label>
-        <input type="number" th:field="*{stage}" class="form-control" id="name" maxlength="10" required/>
+        <label th:for="stage" th:field="*{stage}">Этап №</label>
+        <input type="number" class="form-control" th:name="stage" th:value="${stage}" th:id="stage" maxlength="10" required readonly/>
     </div>
     <div class="my-2">
         <label for="role_id">Роль согласованта</label>

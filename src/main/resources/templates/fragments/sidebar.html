@@ -23,7 +23,7 @@
                                 data-toggle="collapse" data-target="#collapseOrders" aria-expanded="false"
                                 aria-controls="collapseOrders"
                         >
-                            <span data-feather="file"></span>
+                            <span data-feather="clipboard"></span>
                             Процессы
                         </a>
                     </li>
@@ -32,7 +32,7 @@
                             <li class="nav-item">
                                 <a href="/processForm"
                                    th:classappend="${active == 'processForm' ? 'nav-link active':'nav-link'}">
-                                    <span data-feather="file-text"></span>
+                                    <span data-feather="edit-3"></span>
                                     Добавить процесс
                                 </a>
                             </li>
@@ -52,7 +52,7 @@
                                 data-toggle="collapse" data-target="#collapseOrders5" aria-expanded="false"
                                 aria-controls="collapseOrders5"
                         >
-                            <span data-feather="file"></span>
+                            <span data-feather="users"></span>
                             Пользователи
                         </a>
                     </li>
@@ -60,7 +60,7 @@
                         <div class="ml-4 mr-2 my-2 expanded-list">
                             <li class="nav-item">
                                 <a href="/allusers" th:classappend="${active == 'allusers' ? 'nav-link active':'nav-link'}">
-                                    <span data-feather="users"></span>
+                                    <span data-feather="file-text"></span>
                                     Список пользователей
                                 </a>
                             </li>
@@ -74,7 +74,7 @@
                                 data-toggle="collapse" data-target="#collapseOrders2" aria-expanded="false"
                                 aria-controls="collapseOrders2"
                         >
-                            <span data-feather="file"></span>
+                            <span data-feather="github"></span>
                             Роли
                         </a>
                     </li>
@@ -84,7 +84,7 @@
                                 <a href="/admin/addRoleForm"
                                    th:classappend="${active == 'addRoleForm' ? 'nav-link active':'nav-link'}"
                                    th:if="${#authorization.expression('hasAuthority(''admin'')')}">
-                                    <span data-feather="file-text"></span>
+                                    <span data-feather="edit-2"></span>
                                     Добавить роль
                                 </a>
                             </li>
@@ -104,7 +104,7 @@
                                 data-toggle="collapse" data-target="#collapseOrders3" aria-expanded="false"
                                 aria-controls="collapseOrders3"
                         >
-                            <span data-feather="file"></span>
+                            <span data-feather="book"></span>
                             Типы процессов
                         </a>
                     </li>
@@ -114,41 +114,19 @@
                                 <a href="/admin/getProcessTypeForm"
                                    th:classappend="${active == 'getProcessTypeForm' ? 'nav-link active':'nav-link'}"
                                    th:if="${#authorization.expression('hasAuthority(''admin'')')}">
-                                    <span data-feather="file-text"></span>
+                                    <span data-feather="bookmark"></span>
                                     Добавить тип процесса
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="/getAllProcessTypes"
                                    th:classappend="${active == 'getAllProcessTypes' ? 'nav-link active':'nav-link'}">
-                                    <span data-feather="file-text"></span>
+                                        <span data-feather="book-open"></span>
                                     Список типов процессов
                                 </a>
                             </li>
                         </div>
                     </div>
-
-                        <li class="nav-item">
-                            <a
-                                    class="nav-link" href="#"
-                                    data-toggle="collapse" data-target="#collapseOrders4" aria-expanded="false"
-                                    aria-controls="collapseOrders4"
-                            >
-                                <span data-feather="file"></span>
-                                Этапы процессов
-                            </a>
-                        </li>
-                        <div th:classappend="${(menu == 'processStage' ? 'collapse show':'collapse')}" id="collapseOrders4">
-                            <div class="ml-4 mr-2 my-2 expanded-list">
-                                <li class="nav-item">
-                                    <a href="/getAllProcessStages"
-                                       th:classappend="${active == 'getAllProcessStages' ? 'nav-link active':'nav-link'}">
-                                        <span data-feather="file-text"></span>
-                                        Список этапов
-                                    </a>
-                                </li>
-                            </div>
-                        </div>
                 </ul>
             </div>
         </nav>

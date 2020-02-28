@@ -18,4 +18,5 @@ public interface IProcessStage {
     List<ProcessStageViewModel> convertToViewModelFromList(HttpServletRequest request, RoleService roleService,
                                                            ProcessTypesService processTypesService,
                                                            List<ProcessStage> processStageList) throws Exception;
+    int getActualStage(HttpServletRequest request, List<ProcessStage> processStageList);
 }

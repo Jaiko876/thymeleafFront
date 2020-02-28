@@ -4,17 +4,18 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
-<table class="table" th:fragment="rolesTable">
+<body th:fragment="rolesTable">
+<div th:if="${#httpServletRequest.getRequestURI() == '/showroles'}" class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h2 th:text="'Роли пользователя '+ ${user.login}"></h2>
+</div>
+<div th:unless="${#httpServletRequest.getRequestURI() == '/showroles'}" class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h2>Список ролей</h2>
+</div>
+<table class="table" th:if="${not #lists.isEmpty(listroles)}">
     <thead class="thead-light">
     <tr>
         <th scope="col">#</th>
         <th scope="col">Наименование роли</th>
-        <th:block th:if="${#httpServletRequest.requestURI != '/roles' }">
-        <th scope="col" th:if="${#authorization.expression('hasAuthority(''admin'')')}">
-            <a th:href="@{/admin/showUserRoleForm(id=${id})}">
-                Добавить роль</a></th>
-        </th:block>
     </tr>
     </thead>
 
@@ -23,12 +24,38 @@
         <tr>
             <th scope="row" th:text="${iterationStatus.count}">#</th>
             <td th:text="${role.name}">name</td>
-            <th:block th:if="${#httpServletRequest.requestURI != '/roles' }">
-            <td th:if="${#authorization.expression('hasAuthority(''admin'')')}"></td>
-            </th:block>
         </tr>
     </th:block>
     </tbody>
 </table>
+<div th:unless="${not #lists.isEmpty(listroles)}" class="mb-2">
+    <h4>
+        В таблице пусто.
+        <small class="text-muted" th:if="${#authorization.expression('hasAuthority(''admin'')')}">
+            Вы можете добавить новую роль.</small>
+        <small class="text-muted my-4" th:unless="${#authorization.expression('hasAuthority(''admin'')')}">
+            Подождите, пока добавят первую роль.</small>
+    </h4>
+    <th:block th:if="${#httpServletRequest.getRequestURI() == '/roles'}">
+    <a class="btn btn-outline-primary mt-3 mb-3" th:if="${#authorization.expression('hasAuthority(''admin'')')}"
+       role="button" aria-pressed="true" th:href="@{/admin/addRoleForm}">
+        Добавить новую роль</a>
+    </th:block>
+    <th:block th:if="${id != null}">
+        <a class="btn btn-outline-primary mt-3 mb-3"
+           th:if="${#authorization.expression('hasAuthority(''admin'')')}"
+           role="button" aria-pressed="true" th:href="@{/admin/showUserRoleForm(id=${id})}">
+            Добавить новую роль</a>
+    </th:block>
+</div>
+<div th:if="${not #lists.isEmpty(listroles)}">
+<th:block th:if="${id != null}">
+    <a class="btn btn-outline-primary mt-3 mb-3" th:classappend="${buttonStatus == 'true' ? 'btn btn-outline-primary mt-3 mb-3'
+    :'btn btn-outline-primary mt-3 mb-3 disabled'}"
+       th:if="${#authorization.expression('hasAuthority(''admin'')')}"
+       role="button" aria-pressed="true" th:href="@{/admin/showUserRoleForm(id=${id})}">
+        Добавить новую роль</a>
+</th:block>
+</div>
 </body>
 </html>

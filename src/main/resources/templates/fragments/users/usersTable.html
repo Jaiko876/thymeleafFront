@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
-<table class="table" th:fragment="usersTable">
+<body th:fragment="usersTable">
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h2>Список пользователей</h2>
+</div>
+<table class="table" th:if="${not #lists.isEmpty(listusers)}">
     <thead class="thead-light">
     <tr>
         <th scope="col">#</th>
@@ -20,12 +23,15 @@
     <tbody>
     <th:block th:each="user,iterationStatus  : ${listusers}">
         <tr>
-            <th scope="row" th:text="${iterationStatus.count}">#</th>
-            <td th:text="${user.fio}">fio</td>
-            <td th:text="${user.email}">email</td>
-            <td th:text="${user.login}">login</td>
-            <td th:text="${user.telegramChatId}">telegram</td>
-            <td><a th:href="@{/showroles(id=${user.idUser})}">Показать роли </a></td>
+            <th scope="row" class="align-middle" th:text="${iterationStatus.count}">#</th>
+            <td class="align-middle" th:text="${user.fio}">fio</td>
+            <td class="align-middle" th:text="${user.email}">email</td>
+            <td class="align-middle" th:text="${user.login}">login</td>
+            <td class="align-middle text-center" th:text="${user.telegramChatId}">telegram</td>
+            <td class="align-middle">
+                <a class="btn btn-outline-primary btn-sm"  th:href="@{/showroles(id=${user.idUser})}">
+                    Показать роли </a>
+            </td>
         </tr>
     </th:block>
     </tbody>
