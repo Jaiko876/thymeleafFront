@@ -32,7 +32,7 @@ public class ProcessService implements IProcessService {
     }
 
     @Override
-    public boolean addProcess(Process process, HttpServletRequest request) {
+    public void addProcess(Process process, HttpServletRequest request) throws Exception {
         Cookie cookie = cookieService.getCookie(request);
         int userId = jwtTokenProvider.getId(cookie.getValue());
 
@@ -41,13 +41,11 @@ public class ProcessService implements IProcessService {
         HttpHeaders beaverHeader = cookieService.getBeaverHeader(cookie);
         HttpEntity<Process> processHttpEntity = new HttpEntity<>(process, beaverHeader);
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Process> processResponseEntity = restTemplate.exchange(
-                "http://localhost:8080/process/process_type/{id}", HttpMethod.POST, processHttpEntity , Process.class,
+        ResponseEntity<Process> pResponseEntity=restTemplate.exchange("http://localhost:8080/process/process_type/{id}", HttpMethod.POST, processHttpEntity , Process.class,
                 process.getProcess_type_id());
-
-        /* вот это не проходит из-за нул полей*/
-        //new RestTemplate().postForObject("http://localhost:8080/process/process_type/{id}",process,Process.class,process.getProcessTypeId());
-        return true;
+        if (pResponseEntity.getStatusCode().isError()) {
+            throw new Exception(pResponseEntity.getStatusCode().toString());
+        }
     }
 
     public List<ProcessViewModel> getUsersProcesses(HttpServletRequest request) throws Exception {

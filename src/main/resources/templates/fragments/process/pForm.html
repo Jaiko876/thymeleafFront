@@ -20,11 +20,11 @@
             </div>
             <div class="my-2">
                 <label for="name">Имя документа</label>
-                <input type="text" th:field="*{name}" class="form-control" id="name" pattern="^[А-Яа-яЁё\s]+$" maxlength="300" required/>
+                <input type="text" th:field="*{name}" class="form-control" id="name" pattern="^[А-Яа-яЁё0-9\s]+$" maxlength="100" required/>
             </div>
             <div class="my-2">
                 <label for="description">Описание документа</label>
-                <input type="text" th:field="*{description}" class="form-control" id="description" pattern="^[А-Яа-яЁё\s]+$" maxlength="300" required/>
+                <input type="text" th:field="*{description}" class="form-control" id="description" pattern="^[А-Яа-яЁё0-9\s]+$" maxlength="300" required/>
             </div>
             <div class="my-2">
                 <label for="date">Дата</label>

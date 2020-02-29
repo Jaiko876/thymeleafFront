@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface IProcessService {
-    boolean addProcess(Process process, HttpServletRequest request);
+    void addProcess(Process process, HttpServletRequest request) throws Exception;
     List<ProcessViewModel> getUsersProcesses(HttpServletRequest request) throws Exception;
     Process getProcessById(HttpServletRequest request, int id) throws Exception;
 }

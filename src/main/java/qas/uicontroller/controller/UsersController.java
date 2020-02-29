@@ -37,13 +37,10 @@ public class UsersController {
         HttpEntity entityWithToken = cookieService.createEntityWithToken(request);
         ResponseEntity<UserWithoutPassword[]> usersArray = new RestTemplate().exchange("http://localhost:8080/user",
                 HttpMethod.GET, entityWithToken, UserWithoutPassword[].class);
-
-        if (usersArray.getBody() == null) {
-            throw new Exception("Пустой RestTemplate");
+        if (usersArray.getStatusCode().isError()) {
+            throw new Exception(usersArray.getStatusCode().getReasonPhrase());
         }
-
         List<UserWithoutPassword> listUsers = Arrays.asList(usersArray.getBody());
-        //System.out.println(listUsers.toString());
         model.addAttribute("listusers", listUsers);
         return "users/showUsers";
 
@@ -51,7 +48,7 @@ public class UsersController {
 
     @RequestMapping(value = "showroles", method = RequestMethod.GET)
     public String showRoles(Model model, HttpServletRequest request) throws Exception {
-        String id =request.getParameter("id");
+        String id = request.getParameter("id");
         String buttonStatus = "true";
         HttpEntity entityWithToken = cookieService.createEntityWithToken(request);
         ResponseEntity<Role[]> roleArray = new RestTemplate().exchange("http://localhost:8080/user/{id}/role",
@@ -66,12 +63,10 @@ public class UsersController {
             buttonStatus = "";
         }
         UserWithoutPassword userById = usersService.getUserById(request, Integer.parseInt(id));
-
-        //System.out.println(listroles.toString());
         model.addAttribute("buttonStatus", buttonStatus);
         model.addAttribute("user", userById);
         model.addAttribute("id", id);
-        model.addAttribute("listroles",listroles);
+        model.addAttribute("listroles", listroles);
         return "users/showUserRoles";
     }
 
