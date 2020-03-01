@@ -5,10 +5,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.ui.Model;
 import org.springframework.web.client.RestTemplate;
 import qas.uicontroller.model.Process;
-import qas.uicontroller.model.ProcessType;
 import qas.uicontroller.model.StatusType;
 import qas.uicontroller.model.view.ProcessViewModel;
 import qas.uicontroller.security.JwtTokenProvider;
@@ -16,7 +14,6 @@ import qas.uicontroller.service.IService.IProcessService;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,10 +22,12 @@ import java.util.List;
 public class ProcessService implements IProcessService {
     private CookieService cookieService;
     private JwtTokenProvider jwtTokenProvider;
+    private ProcessTypesService processTypesService;
 
-    public ProcessService(CookieService cookieService, JwtTokenProvider jwtTokenProvider) {
+    public ProcessService(CookieService cookieService, JwtTokenProvider jwtTokenProvider, ProcessTypesService processTypesService) {
         this.cookieService = cookieService;
         this.jwtTokenProvider = jwtTokenProvider;
+        this.processTypesService = processTypesService;
     }
 
     @Override
@@ -57,21 +56,15 @@ public class ProcessService implements IProcessService {
                 "http://localhost:8080/user/process/{id}", HttpMethod.GET,
                 entityWithToken , Process[].class, userId);
         if (processArray.getStatusCode().isError()) {
-            throw new Exception(processArray.getStatusCode().toString());
-        }
-        ResponseEntity<ProcessType[]> processTypeArray = new RestTemplate().exchange(
-                "http://localhost:8080/type", HttpMethod.GET, entityWithToken , ProcessType[].class);
-        if (processArray.getStatusCode().isError()) {
-            throw new Exception(processArray.getStatusCode().toString());
+            throw new Exception(processArray.getStatusCode().getReasonPhrase());
         }
 
-        List<ProcessType> processTypes = Arrays.asList(processTypeArray.getBody());
         List<Process> processList = Arrays.asList(processArray.getBody());
         List<ProcessViewModel> processViewModels = new ArrayList<>();
-        int counter = 1;
         for (Process process: processList) {
             ProcessViewModel pvm = new ProcessViewModel(
-                    process.getId_process(), processTypes.get(process.getProcess_type_id() - 1).getName(),
+                    process.getId_process(), processTypesService.getProcessTypeById(
+                            request, process.getProcess_type_id()).getName() ,
                     process.getName(),process.getDescription(),process.getDate_start(),
                     process.getDate_end_planning(),process.getDate_end_fact(),
                     StatusType.valueOfLabel(process.getStatus_id().toString()).name()

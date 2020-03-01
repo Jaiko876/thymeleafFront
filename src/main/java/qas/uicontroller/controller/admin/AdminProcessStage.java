@@ -53,21 +53,13 @@ public class AdminProcessStage {
             if (processType.isEmpty()) {
                 awailableRoles = listroles;
             }
-
-            model.addAttribute("listroles", awailableRoles);
+        List<Role> finalRoles = roleService.checkIfUsersHaveRoles(request, awailableRoles);
+        model.addAttribute("listroles", finalRoles);
             model.addAttribute("processType", processTypeById);
             model.addAttribute("processStage", new ProcessStage());
             model.addAttribute("process_type_id", id);
             model.addAttribute("stage", actualStage);
             return "admin/processStage/processStageForm";
-       // }
-
-        /*model.addAttribute("listroles",listroles);
-        model.addAttribute("processType", processTypeById);
-        model.addAttribute("processStage", new ProcessStage());
-        model.addAttribute("process_type_id", id);
-        model.addAttribute("stage", actualStage);*/
-        //return "admin/processStage/processStageForm";
     }
 
     @RequestMapping(value = "addNewProcessStage", method = RequestMethod.POST)

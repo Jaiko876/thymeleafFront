@@ -23,7 +23,7 @@
     <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
     <h1 class="h3 mb-3 font-weight-normal">Please register</h1>
     <label for="login" class="sr-only">Login</label>
-    <input type="text" th:field="*{username}" id="login" class="form-control" placeholder="Login" minlength="3" maxlength="100" pattern="^[A-Za-z0-9\s]+$" required autofocus>
+    <input type="text" th:field="*{username}" id="login" class="form-control" placeholder="Login" minlength="3" maxlength="50" pattern="^[A-Za-z0-9\s]+$" required autofocus>
     <label for="inputPassword" class="sr-only">Password</label>
     <input type="password" th:field="*{password}" id="inputPassword" class="form-control" placeholder="Password" minlength="3" maxlength="100" pattern="^[A-Za-z0-9\s]+$" required>
     <label for="inputFio" class="sr-only">FIO</label>
@@ -31,7 +31,7 @@
     <label for="inputEmail" class="sr-only">FIO</label>
     <input type="email" th:field="*{email}" id="inputEmail" class="form-control" placeholder="Email" maxlength="100"  required>
     <label for="inputTelegram" class="sr-only">TelegramId</label>
-    <input type="text" th:field="*{telegramChatId}"  onkeypress="return isNumber(event)" id="inputTelegram" class="form-control" placeholder="Telegram" minlength="3" maxlength="20" required>
+    <input type="text" th:field="*{telegramChatId}"  onkeypress="return isNumber(event)" id="inputTelegram" class="form-control" placeholder="Telegram" minlength="1" maxlength="20" required>
     <p class="mt-5 mb-3 text-muted" th:if="${errorregister}==true">Ошибка регистрации</p>
     <button class="btn btn-lg btn-primary btn-block my-2" type="submit" id="loginBtn">Register</button>
     <a class="register" th:href="@{'/login'}">Sign in</a>

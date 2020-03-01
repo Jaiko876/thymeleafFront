@@ -23,17 +23,17 @@
     <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72"
          height="72">
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <div class="alert alert-danger" th:if="${errorsignin}==true">
+        <p class="mt-1 mb-1 text-danger">Неверная пара логин-пароль.</p>
+    </div>
+    <div class="alert alert-danger" th:if="${jwtErr}==true">
+        <p class="mt-1 mb-1 text-danger">Время Вашего сеанса истекло. Пожалуйста, войдите в систему еще раз.</p>
+    </div>
     <label for="login" class="sr-only">Login</label>
     <input type="text" th:field="*{username}" id="login" class="form-control" placeholder="Login" minlength="3" maxlength="100" pattern="^[A-Za-z0-9\s]+$" required autofocus>
     <label for="inputPassword" class="sr-only">Password</label>
     <input type="password" th:field="*{password}" id="inputPassword" class="form-control" placeholder="Password" minlength="3" maxlength="100" pattern="^[A-Za-z0-9\s]+$" required>
-    <div class="checkbox mb-3">
-        <label>
-            <input type="checkbox" value="remember-me"> Remember me
-        </label>
-    </div>
-    <p class="mt-5 mb-3 text-muted" th:if="${errorsignin}==true">Неверная пара логин-пароль</p>
-    <button class="btn btn-lg btn-primary btn-block" type="submit" id="loginBtn">Sign in</button>
+    <button class="btn btn-lg btn-primary btn-block mb-1" type="submit" id="loginBtn">Sign in</button>
     <a class="register" th:href="@{'/reg'}">Registration</a>
     <p class="mt-5 mb-3 text-muted">&copy; 2020 STC20 Innopolis University</p>
 </form>

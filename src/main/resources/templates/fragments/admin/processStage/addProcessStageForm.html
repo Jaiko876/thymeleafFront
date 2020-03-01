@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
-<form th:fragment="processStageForm" th:action="@{addNewProcessStage}" th:object="${processStage}" method="post">
+<body th:fragment="processStageForm">
+<form th:if="${not #lists.isEmpty(listroles)}"  th:action="@{addNewProcessStage}" th:object="${processStage}" method="post">
     <div class="border-bottom">
         <h3>Добавить новый этап</h3>
     </div>
@@ -32,5 +32,18 @@
     <div class="my-4"></div>
     <!--button type="button" class="btn btn-primary">Отмена</button-->
 </form>
+<div th:unless="${not #lists.isEmpty(listroles)}">
+    <h4>
+        В данный момент не существует пользователей с ролями,<br>
+        поэтому, вы не сможете создать этап. <br>
+        <small class="text-muted" th:if="${#authorization.expression('hasAuthority(''admin'')')}">
+            Вам необходимо создать все условия для создания этапа.<br>
+            Задайте пользователям роли.
+        </small>
+    </h4>
+    <a class="btn btn-outline-primary mt-3 mb-3" th:if="${#authorization.expression('hasAuthority(''admin'')')}"
+       role="button" aria-pressed="true" th:href="@{/allusers}">
+        Перейти к таблице пользователей</a>
+</div>
 </body>
 </html>

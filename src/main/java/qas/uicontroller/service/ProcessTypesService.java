@@ -6,8 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import qas.uicontroller.model.ProcessType;
+import qas.uicontroller.model.admin.ProcessStage;
 import qas.uicontroller.service.IService.IProcessTypesService;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -40,5 +42,20 @@ public class ProcessTypesService implements IProcessTypesService {
             throw new Exception(processTypeArray.getStatusCode().getReasonPhrase());
         }
         return processTypeArray.getBody();
+    }
+
+    @Override
+    public List<ProcessType> getProcessTypesWithStagesOnly(HttpServletRequest request,
+                                                           ProcessStageService stageService) throws Exception {
+        List<ProcessStage> allProcessStage = stageService.getAllProcessStage(request);
+        if (allProcessStage.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        List<ProcessType> processTypes = new ArrayList<>();
+        for (ProcessStage stage: allProcessStage) {
+            processTypes.add(getProcessTypeById(request, stage.getProcess_type_id()));
+        }
+        return processTypes;
     }
 }

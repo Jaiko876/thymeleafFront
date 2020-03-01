@@ -15,6 +15,5 @@ public class ErrorController {
         mav.setViewName("error/error");
         return mav;
     }
-
 }
 

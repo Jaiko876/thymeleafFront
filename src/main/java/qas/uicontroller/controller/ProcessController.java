@@ -10,12 +10,11 @@ import qas.uicontroller.model.ProcessType;
 import qas.uicontroller.model.view.ProcessViewModel;
 import qas.uicontroller.service.DataParser;
 import qas.uicontroller.service.ProcessService;
+import qas.uicontroller.service.ProcessStageService;
 import qas.uicontroller.service.ProcessTypesService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
-import java.text.ParseException;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -24,17 +23,18 @@ public class ProcessController {
     private DataParser dataParser;
     private ProcessService processService;
     private ProcessTypesService processTypesService;
+    private ProcessStageService processStageService;
 
-
-    public ProcessController(DataParser dataParser, ProcessService processService, ProcessTypesService processTypesService1) {
+    public ProcessController(DataParser dataParser, ProcessService processService, ProcessTypesService processTypesService1, ProcessStageService processStageService) {
         this.dataParser = dataParser;
         this.processService = processService;
         this.processTypesService = processTypesService1;
+        this.processStageService = processStageService;
     }
 
     @RequestMapping(value = "processForm", method = RequestMethod.GET)
     public String addProcessForm(Model model, HttpServletRequest request) throws Exception {
-        List<ProcessType> listprocesstypes = processTypesService.allProcessTypes(request);
+        List<ProcessType> listprocesstypes = processTypesService.getProcessTypesWithStagesOnly(request, processStageService);
         model.addAttribute("ptl", listprocesstypes);
         model.addAttribute("process", new Process());
         return "process/processForm";

@@ -26,7 +26,7 @@
     <div th:insert="fragments/sidebar::sidebar"></div>
       <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
         <div class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3"
-        >
+        ><h3 th:text="'Добро пожаловать '+ ${user.getFio()}"></h3>
         </div>
       </main>
   <div th:insert="fragments/footer::footer"></div>

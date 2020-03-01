@@ -4,30 +4,33 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
-<table class="table" th:fragment="taskByProcessTable">
+<body th:fragment="taskByProcessTable">
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h2>Список задач по процессу</h2>
+</div>
+<table class="table" >
     <thead class="thead-light">
     <tr>
-        <th scope="col">#</th>
-        <th scope="col">Название процесса</th>
-        <th scope="col">Исполнитель</th>
-        <th scope="col">Роль исполнителя</th>
-        <th scope="col">Дата начала</th>
-        <th scope="col">Планируемая дата конца?</th>
-        <th scope="col">Фактическая дата окончания?</th>
-        <th scope="col">Статус задачи</th>
+        <th class="align-middle" scope="col">#</th>
+        <th class="align-middle" scope="col">Название процесса</th>
+        <th class="align-middle"  scope="col">Исполнитель</th>
+        <th class="align-middle" scope="col">Роль исполнителя</th>
+        <th class="align-middle" scope="col">Дата начала</th>
+        <th class="align-middle" scope="col">Планируемая дата конца?</th>
+        <th class="align-middle" scope="col">Фактическая дата окончания?</th>
+        <th class="align-middle" scope="col">Статус задачи</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="task,iterationStatus: ${tasks}">
-        <th scope="row" th:text="${iterationStatus.count}">#</th>
-        <td th:text="${task.processName}">Название процесса</td>
-        <td th:text="${task.userPerformerName}">Создатель задачи</td>
-        <td th:text="${task.rolePerformerName}">Роль</td>
-        <td th:text="${task.dateStart}">Дата начала</td>
-        <td th:text="${task.dateEndPlanning}">Планируемая дата конца?</td>
-        <td th:text="${task.dateEndFact}">Фактическая дата окончания?</td>
-        <td th:text="${task.statusName}">Статус задачи</td>
+        <th class="align-middle" scope="row" th:text="${iterationStatus.count}">#</th>
+        <td class="align-middle" th:text="${task.processName}">Название процесса</td>
+        <td class="align-middle" th:text="${task.userPerformerName}">Создатель задачи</td>
+        <td class="align-middle" th:text="${task.rolePerformerName}">Роль</td>
+        <td class="align-middle"  th:text="${task.dateStart}">Дата начала</td>
+        <td class="align-middle" th:text="${task.dateEndPlanning}">Планируемая дата конца?</td>
+        <td  class="align-middle" th:text="${task.dateEndFact}">Фактическая дата окончания?</td>
+        <td class="align-middle" th:text="${task.statusName}">Статус задачи</td>
     </tr>
     </tbody>
 </table>

@@ -3,17 +3,17 @@ package qas.uicontroller.controller;
 import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.view.RedirectView;
 import qas.uicontroller.model.LoginForm;
 import qas.uicontroller.service.CookieService;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/")
@@ -25,7 +25,12 @@ public class LoginController {
     }
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
-    public String showLogin(Model model) {
+    public String showLogin(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            model.addAttribute("jwtErr", true);
+            session.invalidate();
+        }
         model.addAttribute("loginForm", new LoginForm());
         model.addAttribute("error",false);
         return "login";
